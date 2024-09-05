@@ -1,0 +1,57 @@
+
+
+*Frontend (Client-side)*
+
+- HTML/CSS for UI components (e.g., login form, profile page, news feed)
+- JavaScript for dynamic functionality (e.g., posting updates, commenting, liking)
+
+*Backend (Server-side)*
+
+- Node.js with Express.js framework for API routing and server management
+- MongoDB for storing user data, posts, comments, and other relevant information
+
+*Example Code*
+
+*User Model (MongoDB)*
+```
+const userSchema = new mongoose.Schema({
+  username: String,
+  email: String,
+  password: String,
+  profilePicture: String,
+  coverPhoto: String,
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
+});
+```
+
+*Post Model (MongoDB)*
+```
+const postSchema = new mongoose.Schema({
+  content: String,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+});
+```
+
+*Comment Model (MongoDB)*
+```
+const commentSchema = new mongoose.Schema({
+  content: String,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' }
+});
+```
+
+*API Endpoints (Express.js)*
+```
+app.post('/login', authenticateUser);
+app.post('/register', registerUser);
+app.get('/profile/:username', getProfile);
+app.post('/post', createPost);
+app.get('/feed', getNewsFeed);
+app.post('/comment/:postId', createComment);
+app.put('/like/:postId', likePost);
+```
+
